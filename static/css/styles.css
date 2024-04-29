@@ -1,0 +1,30 @@
+*{
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+body{
+  color: #eee;
+  background: #333;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+h1{
+  color: #cbc;
+}
+#cabecera { 
+  background-color: #222;
+  color: #abc;
+  width: 100vw;
+  padding: 12px 0;
+  text-align: center;
+}
+input[type='text'],input[type='email'], button{
+  color: #cbc;
+  background: #333;
+}
+#comment{
+  background-color: #333;
+  color: #abc;
+}

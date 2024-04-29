@@ -1,0 +1,13 @@
+{% macro renderizador_de_campos(field) %}
+  <td> {{ field.label }}
+       {{ field(**kwargs) }}
+
+  {# pregunto si los campos tienen errores#}
+  {% if field.errors %}
+    <ul>
+      {% for error in field.errors %}
+        <li> {{ error }} </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}
