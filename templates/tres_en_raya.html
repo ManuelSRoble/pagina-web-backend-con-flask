@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Tate</h1>
+{% for user_data in data %}
+  {{ user_data[1] }}<br>
+{% endfor %}
+
+{% endblock content %}
