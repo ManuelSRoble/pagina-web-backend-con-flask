@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash
+from flask import Flask, render_template, request, redirect, url_for, flash
 #importo las funciones para crear un formulario
 from formFunctions import *
 from db import *
@@ -33,12 +33,30 @@ def registro():
 def login():
   pass
 
+#ruta ppal para mostrar todos los registros
 @app.route('/admin')
 def admin():
+  data = mostrar_usuarios()
+  titulo = 'Ventana admin'
+  return render_template('admin.html', datos=data, titulo=titulo)
   #ver datos de la tabla usuario de bd
-  datos = mostrar_usuarios()
+  '''datos = mostrar_usuarios()
+  eliminar = eliminar_usuario()
   titulo = 'Ventana Admin'
-  return render_template('admin.html', datos=datos, titulo = titulo)
+  return render_template('admin.html', datos=datos, titulo = titulo, eliminar=eliminar)'''
+
+#ruta para modificar un usuario existente
+@app.route('/actualizar/<int:id>', methods=['POST'])
+def actualizar(id):
+  name = request.form['name']
+  #actualizar el registro en la bd
+  actualizar_usuario(name, id)
+  return redirect(url_for('admin'))
+
+@app.route('/eliminar/<int:id>')
+def eliminar(id):
+  eliminar_usuario(id)
+  return redirect(url_for('admin'))
 
 if __name__ == '__main__':
   app.run(debug=True)

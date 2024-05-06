@@ -1,4 +1,5 @@
 import pymysql
+import pymysql.cursors
 #conexion a la bd
 def conexionbd():
   try:
@@ -6,8 +7,9 @@ def conexionbd():
       host='localhost',
       user='root',
       passwd='',
-      database='tres_en_raya'
-    )
+      database='tres_en_raya',
+      cursorclass=pymysql.cursors.DictCursor
+    ) # uso cursor que devuelva un diccionario para trabajarlo mejor que con tuplas que es como devuelve por defecto 
     return db
   except pymysql.Error as e:
     print('Error al conectar a la bd', e)
@@ -30,14 +32,41 @@ def mostrar_usuarios():
     
 def agregar_usuario(nombre, email, clave, edad):
   conexion = conexionbd()
-  #cursor para ejecutar consultas sql, insertar nuevo usuario a la bd
   if conexion:
+    #cursor para ejecutar consultas sql, insertar nuevo usuario a la bd
     cursor = conexion.cursor()
     
-    #Insercion de datas a la tabla de 'usuarios_web'
+    #Insercion de datos a la tabla de 'usuarios_web'
     cursor.execute("INSERT INTO usuarios_web (nombre, email, clave, edad) VALUES (%s, %s, %s, %s)", (nombre, email, clave, edad))
     
     #guardar los datos en la bd
     conexion.commit()
     conexion.close() #cerrar conexion a la bd
     
+#eliminar usuario de la bd
+def eliminar_usuario(id):
+  conexion = conexionbd()
+  if conexion:
+    #crear un cursor para ejecutar consultas sql
+    cursor = conexion.cursor()
+    
+    # Instruccion sql para eliminar el usuario
+    cursor.execute('DELETE FROM usuarios_web WHERE id = %s', (id,))
+    # Ejecutar la instruccion sql con el identificador del usuario
+    # cursor.execute(sql, (id_usuario,))
+    
+    #hacer commit para guardar los cambios
+    conexion.commit()
+    
+    #cerrar el cursor y la conexion
+    cursor.close()
+    conexion.close()
+    
+def actualizar_usuario(nombre, id):
+  conexion = conexionbd()
+  if conexion:
+    cursor = conexion.cursor()
+    #actualizar el registro en la bd
+    cursor.execute('UPDATE usuarios_web SET nombre = %s WHERE id = %s', (nombre, id))
+    conexion.commit()
+    conexion.close()

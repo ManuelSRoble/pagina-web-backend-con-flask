@@ -1,9 +1,39 @@
 {% extends "base.html" %}
 {% block title %}{{ titulo }}{% endblock title %}
+eliminar = {{ eliminar }}
 {% block content %}
+  <style>
+    ul{
+      padding: 5px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    ul li{
+      display: flex;
+    }
+  </style>
+  <!--lista de registros existentes-->
   <ul>
     {% for fila in datos %}
-      <li>{{ fila }}</li>
+      <li>
+        {{ fila.id }} - {{ fila.nombre }}
+        <!-- formulario para actualizar un registro existente-->
+        <form action="/actualizar/{{ fila.id }}" method="post">
+          <input type='text' name='name' value="{{ fila.nombre }}">
+          <button type='submit'>Actualizar</button>
+        </form>
+        <!--enlace para eliminar un usuario-->
+        <a href="/eliminar/{{ fila.id }}">Eliminar</a>
+      </li>
     {% endfor %}
   </ul>
+  <!--<ul>
+    {% for fila in datos %}
+      <li>
+        {{ fila }}
+        <button class='btnEliminar' onClick="eliminar({{ fila.id }})">Eliminar</button>
+      </li>
+    {% endfor %}
+  </ul> -->
 {% endblock content %}
