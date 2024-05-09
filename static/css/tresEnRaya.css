@@ -1,4 +1,4 @@
-.cell{
+.celda{
   width: 75px;
   height: 75px;
   border: 2px solid;
@@ -17,10 +17,10 @@
   width: 225px;
   margin: auto;
 }
-#statusText{
+#estadoTexto{
   padding: 10px 0 20px 0;
 }
-#restartBtn{
+#btnReiniciar{
   border: 1px solid #555;
   background-color: rgb(102, 129, 140);
   color: #222;

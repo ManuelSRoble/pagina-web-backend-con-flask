@@ -20,18 +20,12 @@ def registro():
       #if clave == confirmacionDeClave:
       agregar_usuario(nombreDeUsuario, email, clave, edad)
       return render_template('tresEnRaya.html', titulo=titulo)
-    
-      '''
-      datos = mostrar_usuarios()
-      #renderizar la plantilla html y pasar los datos recuperados como contexto
-      return render_template('tres_en_raya.html', data = datos) 
-      '''
-  # if form.validate_on_submit():
-  #   return 'Formulario validado con exito'
+
   return render_template('formularioDeRegistro.html', form = form)
 
 @app.route('/login', methods=['POST','GET'])
 def login():
+  titulo = 'Tres en Raya #'
   form = LoginForm()
   if form.validate_on_submit():
     email = request.form['correo']
@@ -45,7 +39,7 @@ def login():
       c = clave_devuelta['clave']
       c = int(c)
       if c == contrasena:        
-        return render_template('tresEnRaya.html')
+        return render_template('tresEnRaya.html', titulo = titulo)
       else:
         flash('Clave incorrecta')
     else:
@@ -53,18 +47,6 @@ def login():
       flash('Ese mail no esta registrado')
     
   return render_template('login.html', form=form)
-  '''
-    if request.method == 'POST':
-      #obtener datos de la solicitud POST
-      email = request.form['correo']
-      esta = verificar_si_ya_esta_el_mail_en_la_bd(email)
-      if esta: # el correo existe en la bd
-        #obtengo la clave del formulario
-        clave = request.form['contrasena']
-        #verifico si la clave esta es la misma que la que esta guarda para ese mail
-        
-        return render_template('tresEnRaya.html', titulo='Tres en raya xo')
-  '''
 
 #ruta ppal para mostrar todos los registros
 @app.route('/admin')
@@ -72,11 +54,6 @@ def admin():
   data = mostrar_usuarios()
   titulo = 'Ventana admin'
   return render_template('admin.html', datos=data, titulo=titulo)
-  #ver datos de la tabla usuario de bd
-  '''datos = mostrar_usuarios()
-  eliminar = eliminar_usuario()
-  titulo = 'Ventana Admin'
-  return render_template('admin.html', datos=datos, titulo = titulo, eliminar=eliminar)'''
 
 #ruta para modificar un usuario existente
 @app.route('/actualizar/<int:id>', methods=['POST'])

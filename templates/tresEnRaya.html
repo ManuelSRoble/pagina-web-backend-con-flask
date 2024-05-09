@@ -1,32 +1,24 @@
-<!--<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tres en raya</title>
-    <!-- STYLES -- 
-    <link rel="stylesheet" href="css.css">
-</head>
-<body> -->
 {% extends "base.html" %}
+
 {% block title %}{{ titulo }}{% endblock title %}
+
 {% block content %}
 <link rel='stylesheet' href="{{ url_for('static', filename='css/tresEnRaya.css') }}">
 <div id="gameContainer">
     <h1>Tres en Raya</h1>
     <div id="cellContainer">
-        <div cellIndex="0" class="cell"></div>
-        <div cellIndex="1" class="cell"></div>
-        <div cellIndex="2" class="cell"></div>
-        <div cellIndex="3" class="cell"></div>
-        <div cellIndex="4" class="cell"></div>
-        <div cellIndex="5" class="cell"></div>
-        <div cellIndex="6" class="cell"></div>
-        <div cellIndex="7" class="cell"></div>
-        <div cellIndex="8" class="cell"></div>
+        <div indiceCelda="0" class="celda"></div>
+        <div indiceCelda="1" class="celda"></div>
+        <div indiceCelda="2" class="celda"></div>
+        <div indiceCelda="3" class="celda"></div>
+        <div indiceCelda="4" class="celda"></div>
+        <div indiceCelda="5" class="celda"></div>
+        <div indiceCelda="6" class="celda"></div>
+        <div indiceCelda="7" class="celda"></div>
+        <div indiceCelda="8" class="celda"></div>
     </div>
-    <h2 id="statusText"></h2>
-    <button id="restartBtn">Restart</button>
+    <h2 id="estadoTexto"></h2>
+    <button id="btnReiniciar">Reiniciar</button>
 </div>
 <script src="{{ url_for('static', filename='js/tresEnRaya.js') }}"></script>
 
