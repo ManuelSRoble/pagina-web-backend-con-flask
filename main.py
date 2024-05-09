@@ -8,6 +8,7 @@ app.config['SECRET_KEY'] = 'This is the most secure key to protect the forms'
 
 @app.route('/', methods=['POST', 'GET'])
 def registro():
+  titulo = 'Tres en raya'
   form = RegistroFormulario()
   if form.validate_on_submit():
     if request.method == 'POST':
@@ -18,7 +19,7 @@ def registro():
       edad = request.form['edad']
       #if clave == confirmacionDeClave:
       agregar_usuario(nombreDeUsuario, email, clave, edad)
-      return '<h1>Usuario agregado</h1>'
+      return render_template('tresEnRaya.html', titulo=titulo)
     
       '''
       datos = mostrar_usuarios()
@@ -29,9 +30,41 @@ def registro():
   #   return 'Formulario validado con exito'
   return render_template('formularioDeRegistro.html', form = form)
 
-@app.route('/login')
+@app.route('/login', methods=['POST','GET'])
 def login():
-  pass
+  form = LoginForm()
+  if form.validate_on_submit():
+    email = request.form['correo']
+    obtener = verificar_si_ya_esta_el_mail_en_la_bd(email)
+    if obtener:
+      #existe el mail en la bd
+      #verificar si la clave es correcta
+      contrasena = request.form['contrasena']
+      contrasena = int(contrasena)
+      clave_devuelta = verifico_clave_del_mail(email)
+      c = clave_devuelta['clave']
+      c = int(c)
+      if c == contrasena:        
+        return render_template('tresEnRaya.html')
+      else:
+        flash('Clave incorrecta')
+    else:
+      #el registro(el mail) no existe en la bd
+      flash('Ese mail no esta registrado')
+    
+  return render_template('login.html', form=form)
+  '''
+    if request.method == 'POST':
+      #obtener datos de la solicitud POST
+      email = request.form['correo']
+      esta = verificar_si_ya_esta_el_mail_en_la_bd(email)
+      if esta: # el correo existe en la bd
+        #obtengo la clave del formulario
+        clave = request.form['contrasena']
+        #verifico si la clave esta es la misma que la que esta guarda para ese mail
+        
+        return render_template('tresEnRaya.html', titulo='Tres en raya xo')
+  '''
 
 #ruta ppal para mostrar todos los registros
 @app.route('/admin')

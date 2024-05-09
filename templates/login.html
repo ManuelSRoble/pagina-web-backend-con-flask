@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% from "_macro.html" import renderizador_de_campos %}
+
+<!--
+  <div class="formulario">
+    <h2>Iniciar Sesión</h2>
+    <form action="/login" method="post">
+      <label for="email">Correo electronico</label>
+      <input type="email" id="email" name="email" required>
+      <br><br>
+      <label for="password">Clave:</label>
+      <input type="password" id="password" name="password" required>
+      <br><br>
+      <input type="submit" value="Iniciar Sesión">
+    </form>
+  </div>
+-->
+<h1>Acceder / Login</h1>
+<form method='post'>
+  {{ form.hidden_tag() }}
+  <div>
+    {{ renderizador_de_campos(form.correo) }}
+  </div>
+  <div>
+    {{ renderizador_de_campos(form.contrasena) }}
+  </div>
+  
+  <button type='submit'> Acceder </button>
+</form>
+<!-- agregar bloque para mostrar mensajes flash-->
+{% with mensajes = get_flashed_messages(with_categories=true) %}
+  {% if mensajes %}
+    {% for categoria, mensaje in mensajes %}
+      <div class="alert alert-{{ categoria }}">
+        {{ mensaje }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+{% endblock content %}

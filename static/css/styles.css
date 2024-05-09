@@ -18,8 +18,27 @@ h1{
   background-color: #222;
   color: #abc;
   width: 100vw;
-  padding: 12px 0;
+  padding: 12px ;
   text-align: center;
+  
+  display: flex;
+  justify-content: space-between;
+}
+#cabecera nav{
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding-right: 25px;
+}
+#cabecera nav a{
+  text-decoration: none;
+  color: #eee;
+}
+#cabecera nav a:hover{
+  color: #848598;
+}
+#cabecera h1{
+  margin-left: 20px;
 }
 input[type='text'],input[type='email'], button{
   color: #cbc;

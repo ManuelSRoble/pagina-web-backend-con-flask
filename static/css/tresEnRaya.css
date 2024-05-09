@@ -17,9 +17,13 @@
   width: 225px;
   margin: auto;
 }
+#statusText{
+  padding: 10px 0 20px 0;
+}
 #restartBtn{
   border: 1px solid #555;
-  background-color: lightblue;
+  background-color: rgb(102, 129, 140);
+  color: #222;
   width: 200px;
   height: 40px;
   border-radius: 5px;

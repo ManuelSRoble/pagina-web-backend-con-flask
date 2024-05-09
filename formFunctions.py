@@ -2,7 +2,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, SubmitField, PasswordField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, NumberRange, ValidationError
-from flask_wtf import CSRFProtect
+# from flask_wtf import CSRFProtect
 
 def validar_usuario(form, field):
   if not field.data.isalpha():
@@ -37,3 +37,9 @@ class RegistroFormulario(FlaskForm):
   
   edad = IntegerField('Edad/Age', validators=[DataRequired(), validar_edad])
   enviar = SubmitField('Enviar')
+  
+class LoginForm(FlaskForm):
+  correo = StringField('Correo', validators=[DataRequired(), Email(), validar_correo])
+  
+  contrasena = PasswordField('Clave', validators=[DataRequired(), Length(min=4, max=10, message='Debe tener entre 4 y 10 caracteres')])
+  enviar = SubmitField('Acceder')
